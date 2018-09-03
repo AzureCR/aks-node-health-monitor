@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+# install health-monitor.sh
+echo installing health-monitor.sh
+curl -o /usr/local/bin/health-monitor.sh https://raw.githubusercontent.com/juan-lee/aks-node-health-monitor/master/health-monitor.sh
+chown root:root /usr/local/bin/health-monitor.sh
+chmod 0755 /usr/local/bin/health-monitor.sh
+
+# install docker-monitor.service
+echo installing docker-monitor.service
+curl -o /etc/systemd/system/docker-monitor.service https://raw.githubusercontent.com/juan-lee/aks-node-health-monitor/master/docker-monitor.service
+chown root:root /etc/systemd/system/docker-monitor.service
+chmod 0644 /etc/systemd/system/docker-monitor.service
+
+# install kubelet-monitor.service
+echo install kubelet-monitor.service
+curl -o /etc/systemd/system/kubelet-monitor.service https://github.com/juan-lee/aks-node-health-monitor/blob/master/kubelet-monitor.service
+chown root:root /etc/systemd/system/kubelet-monitor.service
+chmod 0644 /etc/systemd/system/kubelet-monitor.service
+
+# enable services
+systemctl daemon-reload
+
+echo enabling and starting docker-monitor
+systemctl enable docker-monitor
+systemctl restart docker-monitor
+
+echo enabling and starting kubelet-monitor
+systemctl enable kubelet-monitor
+systemctl restart kubelet-monitor
