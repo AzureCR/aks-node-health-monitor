@@ -16,7 +16,7 @@ chmod 0644 /etc/systemd/system/docker-monitor.service
 
 # install kubelet-monitor.service
 echo install kubelet-monitor.service
-curl -o /etc/systemd/system/kubelet-monitor.service https://github.com/juan-lee/aks-node-health-monitor/blob/master/kubelet-monitor.service
+curl -o /etc/systemd/system/kubelet-monitor.service https://raw.githubusercontent.com/juan-lee/aks-node-health-monitor/master/kubelet-monitor.service
 chown root:root /etc/systemd/system/kubelet-monitor.service
 chmod 0644 /etc/systemd/system/kubelet-monitor.service
 
